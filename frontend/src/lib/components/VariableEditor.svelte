@@ -128,7 +128,7 @@
 			sendUserToast(`Could not update variable: ${err.body}`, true)
 		}
 	}
-	let editorKind: 'plain' | 'json' | 'yaml' = $state('plain')
+	let editorKind: 'plain' | 'json' | 'yaml' | 'html' | 'css' | 'javascript' | 'typescript' | 'python' | 'php' = $state('plain')
 	let editor: SimpleEditor | undefined = $state(undefined)
 </script>
 
@@ -196,6 +196,12 @@
 								<ToggleButton value="plain" label="Plain" {item} />
 								<ToggleButton value="json" label="Json" {item} />
 								<ToggleButton value="yaml" label="YAML" {item} />
+								<ToggleButton value="html" label="HTML" {item} />
+								<ToggleButton value="css" label="CSS" {item} />
+								<ToggleButton value="javascript" label="JS" {item} />
+								<ToggleButton value="typescript" label="TS" {item} />
+								<ToggleButton value="python" label="Python" {item} />
+								<ToggleButton value="php" label="PHP" {item} />
 							{/snippet}
 						</ToggleButtonGroup>
 						{#if editorKind == 'plain'}
@@ -231,6 +237,96 @@
 										bind:this={editor}
 										autoHeight
 										lang="yaml"
+										bind:code={variable.value}
+										fixedOverflowWidgets={false}
+										class="bg-surface-tertiary"
+									/>
+								{/await}
+							</div>
+						{:else if editorKind == 'html'}
+							<div class="border rounded mb-4 w-full">
+								{#await import('$lib/components/SimpleEditor.svelte')}
+									<Loader2 class="animate-spin" />
+								{:then Module}
+									<Module.default
+										bind:this={editor}
+										autoHeight
+										lang="html"
+										bind:code={variable.value}
+										fixedOverflowWidgets={false}
+										class="bg-surface-tertiary"
+									/>
+								{/await}
+							</div>
+						{:else if editorKind == 'css'}
+							<div class="border rounded mb-4 w-full">
+								{#await import('$lib/components/SimpleEditor.svelte')}
+									<Loader2 class="animate-spin" />
+								{:then Module}
+									<Module.default
+										bind:this={editor}
+										autoHeight
+										lang="css"
+										bind:code={variable.value}
+										fixedOverflowWidgets={false}
+										class="bg-surface-tertiary"
+									/>
+								{/await}
+							</div>
+						{:else if editorKind == 'javascript'}
+							<div class="border rounded mb-4 w-full">
+								{#await import('$lib/components/SimpleEditor.svelte')}
+									<Loader2 class="animate-spin" />
+								{:then Module}
+									<Module.default
+										bind:this={editor}
+										autoHeight
+										lang="javascript"
+										bind:code={variable.value}
+										fixedOverflowWidgets={false}
+										class="bg-surface-tertiary"
+									/>
+								{/await}
+							</div>
+						{:else if editorKind == 'typescript'}
+							<div class="border rounded mb-4 w-full">
+								{#await import('$lib/components/SimpleEditor.svelte')}
+									<Loader2 class="animate-spin" />
+								{:then Module}
+									<Module.default
+										bind:this={editor}
+										autoHeight
+										lang="typescript"
+										bind:code={variable.value}
+										fixedOverflowWidgets={false}
+										class="bg-surface-tertiary"
+									/>
+								{/await}
+							</div>
+						{:else if editorKind == 'python'}
+							<div class="border rounded mb-4 w-full">
+								{#await import('$lib/components/SimpleEditor.svelte')}
+									<Loader2 class="animate-spin" />
+								{:then Module}
+									<Module.default
+										bind:this={editor}
+										autoHeight
+										lang="python"
+										bind:code={variable.value}
+										fixedOverflowWidgets={false}
+										class="bg-surface-tertiary"
+									/>
+								{/await}
+							</div>
+						{:else if editorKind == 'php'}
+							<div class="border rounded mb-4 w-full">
+								{#await import('$lib/components/SimpleEditor.svelte')}
+									<Loader2 class="animate-spin" />
+								{:then Module}
+									<Module.default
+										bind:this={editor}
+										autoHeight
+										lang="php"
 										bind:code={variable.value}
 										fixedOverflowWidgets={false}
 										class="bg-surface-tertiary"
